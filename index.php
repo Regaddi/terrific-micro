@@ -7,7 +7,6 @@
 // Do not change this file - use project/index.project.php for your customisations
 // -------------------------------------------------------------------------------------------
 
-
 define( 'BASE', dirname( __FILE__ ) . '/' );
 $config   = json_decode( file_get_contents( BASE . 'config.json' ) );
 $nocache  = false; // true -> disables .less/.scss caching
@@ -42,6 +41,8 @@ if(isset($argv)) {
 		$server['REQUEST_URI'] .= '?' . $argv[2];
 		$server['QUERY_STRING'] = $argv[2];
 		parse_str($argv[2], $request);
+	} else {
+		$server['QUERY_STRING'] = '';
 	}
 }
 
