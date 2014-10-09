@@ -27,11 +27,6 @@ if(isset($argv)) {
 			case 'css':
 			case 'js':
 				$server['REQUEST_URI'] = '/' . $parts[1]. '.' . $parts[0];
-				if(isset($parts[2]) && $parts[2] === 'min') {
-					$server['REQUEST_URI'] .= '?min';
-					$request['min'] = '';
-					$server['QUERY_STRING'] = '?min';
-				}
 				break;
 			case 'view':
 				$server['REQUEST_URI'] = '/' . $parts[1];
@@ -42,6 +37,11 @@ if(isset($argv)) {
 		}
 	} else {
 		$server['REQUEST_URI'] = '/';
+	}
+	if(isset($argv[2])) {
+		$server['REQUEST_URI'] .= '?' . $argv[2];
+		$server['QUERY_STRING'] = $argv[2];
+		parse_str($argv[2], $request);
 	}
 }
 
