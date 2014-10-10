@@ -7,7 +7,7 @@
 // Do not change this file - use project/index.project.php for your customisations
 // -------------------------------------------------------------------------------------------
 
-define( 'BASE', dirname( __FILE__ ) . '/' );
+define( 'BASE', __DIR__ . '/' );
 $config   = json_decode( file_get_contents( BASE . 'config.json' ) );
 $nocache  = false; // true -> disables .less/.scss caching
 $cachedir = ( is_writeable( sys_get_temp_dir() ) ? sys_get_temp_dir() : BASE . 'app/cache' ); // use php temp or the local cache directory
@@ -19,17 +19,17 @@ $request = $_REQUEST;
 // Check for commandline
 // ---------------------
 
-if(isset($argv)) {
-	if(isset($argv[1])) {
-		$parts = explode(':', $argv[1]);
-		switch($parts[0]) {
+if( isset( $argv ) ) {
+	if( isset( $argv[1] ) ) {
+		$parts = explode( ':', $argv[1] );
+		switch( $parts[0] ) {
 			case 'css':
 			case 'js':
-				$server['REQUEST_URI'] = '/' . $parts[1]. '.' . $parts[0];
+				$server['REQUEST_URI'] = '/' . $parts[1] . '.' . $parts[0];
 				break;
 			case 'view':
 				$server['REQUEST_URI'] = '/' . $parts[1];
-				if(isset($parts[2])) {
+				if( isset( $parts[2] ) ) {
 					$server['REQUEST_URI'] .= '-' . $parts[2];
 				}
 				break;
@@ -37,10 +37,10 @@ if(isset($argv)) {
 	} else {
 		$server['REQUEST_URI'] = '/';
 	}
-	if(isset($argv[2])) {
+	if( isset( $argv[2] ) ) {
 		$server['REQUEST_URI'] .= '?' . $argv[2];
 		$server['QUERY_STRING'] = $argv[2];
-		parse_str($argv[2], $request);
+		parse_str( $argv[2], $request );
 	} else {
 		$server['QUERY_STRING'] = '';
 	}
